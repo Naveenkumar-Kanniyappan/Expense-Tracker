@@ -9,10 +9,13 @@ document.getElementById("add-transaction").addEventListener("click", () => {
 
     if (name && !isNaN(amount) && amount !== 0) {
         let listItem = document.createElement("li");
-        listItem.setAttribute("data-amount", amount);
+        listItem.setAttribute("id","data-amount", amount);
         listItem.innerHTML = `
             <span>${name}</span>
-            <span>${amount.toFixed(2)} <i class="fas fa-trash delete-btn"></i></span>
+            <span>${amount.toFixed(2)}</span>
+            <div id=icone> 
+                <i class="fas fa-trash delete-btn"></i>
+            </div>
         `;
 
         historyList.appendChild(listItem);
