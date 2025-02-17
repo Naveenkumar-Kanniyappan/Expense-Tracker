@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.main-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+h1 {
+    color: #333;
+    border-bottom: 1px solid rgb(223, 219, 219);
+}
+.balance {
+    margin: 20px 0;
+}
+.balance h3{
+    text-decoration: underline;
+}
+.balance span{
+    border-bottom: 1px solid rgb(223, 219, 219);
+}
+
+.table {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.income, .expense {
+    text-align: justify;
+    width: 43%;
+    padding: 10px;
+    border-radius: 5px;
+}
+.income {
+    background: #c8e6c9;
+    color: #2e7d32;
+}
+.expense {
+    background: #ffcdd2;
+    color: #c62828;
+}
+.history {
+    margin: 20px 0;
+    text-align: left;
+    border-bottom: 1px solid rgb(223, 221, 221);
+}
+.add-transaction {
+    text-align: left;
+}
+.add-transaction h3{
+    border-bottom: 1px solid rgb(223, 219, 219);
+}
+input {
+    width: 91%;
+    padding: 8px;
+    margin: 12px 0px;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background: #0056b3;
+}
