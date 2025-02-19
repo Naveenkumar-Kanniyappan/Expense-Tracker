@@ -1,54 +1,73 @@
 let balance = document.getElementById("balance");
-let income = document.querySelector(".income");
-let expense = document.querySelector(".expense");
-let historyList = document.querySelector(".history-list");
+let  money_plus = document.getElementById("money-plus");
+let  money_minus = document.getElementById("money-minus");
+let  list = document.getElementById("list");
+let  form = document.getElementById("form");
+let  text = document.getElementById("text");
+let  amount = document.getElementById("amount");
 
-document.getElementById("add-transaction").addEventListener("click", () => {
-    let name = document.getElementById("text").value.trim();
-    let amount = parseFloat(document.getElementById("amount").value);
+let transactions = [];
 
-    if (name && !isNaN(amount) && amount !== 0) {
-        let listItem = document.createElement("li");
-        listItem.setAttribute("id","data-amount", amount);
-        listItem.innerHTML = `
-            <span>${name}</span>
-            <span>${amount.toFixed(2)}</span>
-            <div id=icone> 
-                <i class="fas fa-trash delete-btn"></i>
-            </div>
-        `;
-
-        historyList.appendChild(listItem);
-
-        updateTotalAmount(amount);
-
-        listItem.querySelector(".delete-btn").addEventListener("click", () => {
-            let itemAmount = parseFloat(listItem.getAttribute("data-amount"));
-            updateTotalAmount(-itemAmount);
-            listItem.remove();
-        });
-
-        document.getElementById("text").value = "";
-        document.getElementById("amount").value = "";
-    } else {
-        alert("Please enter valid text and amount");
-    }
-});
-
-function updateTotalAmount(amount) {
-    let currentBalance = parseFloat(balance.textContent.replace("$", "")) || 0;
-    let currentIncome = parseFloat(income.textContent.replace("Income: $", "")) || 0;
-    let currentExpense = parseFloat(expense.textContent.replace("Expense: $", "")) || 0;
-
-    currentBalance += amount;
-
-    if (amount > 0) {
-        currentIncome += amount;
-    } else {
-        currentExpense += Math.abs(amount);
+function addTransaction(event) {
+    event.preventDefault();
+    
+    if (text.value.trim() === '' || amount.value.trim() === '') {
+        alert('Please enter text and amount');
+        return;
     }
 
-    balance.textContent = `$${currentBalance.toFixed(2)}`;
-    income.textContent = `Income: $${currentIncome.toFixed(2)}`;
-    expense.textContent = `Expense: $${currentExpense.toFixed(2)}`;
+    let  transaction = {
+        id: Math.floor(Math.random() * 1000000000),
+        text: text.value,
+        amount: Number(amount.value)
+    };
+
+    transactions.push(transaction);
+
+    addTransactionToList(transaction);
+    updateValues();
+
+    text.value = '';
+    amount.value = '';
 }
+
+function addTransactionToList(transaction) {
+    let  sign = transaction.amount < 0 ? "-" : "+";
+    let  item = document.createElement("li");
+    
+    item.classList.add(transaction.amount < 0 ? "minus" : "plus");
+    
+    item.innerHTML = `
+        ${transaction.text} <span>${sign}₹${Math.abs(transaction.amount)}</span>
+        <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+    `;
+    
+    list.appendChild(item);
+}
+
+function updateValues() {
+    let  amounts = transactions.map(transaction => transaction.amount);
+
+    let  total = amounts.reduce((acc, item) => acc + item, 0).toFixed(2);
+    let  income = amounts.filter(item => item > 0).reduce((acc, item) => acc + item, 0).toFixed(2);
+    let  expense = amounts.filter(item => item < 0).reduce((acc, item) => acc + item, 0).toFixed(2);
+
+    balance.innerHTML = `₹${total}`;
+    money_plus.innerHTML = `+₹${income}`;
+    money_minus.innerHTML = `-₹${Math.abs(expense)}`;
+}
+
+function removeTransaction(id) {
+    transactions = transactions.filter(transaction => transaction.id !== id);
+    refreshUI();
+}
+
+function refreshUI() {
+    list.innerHTML = "";
+    transactions.forEach(addTransactionToList);
+    updateValues();
+}
+
+refreshUI();
+
+form.addEventListener('submit', addTransaction);

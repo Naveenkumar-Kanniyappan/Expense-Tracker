@@ -8,32 +8,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="main-container">
+    <div class="container">
         <h1>Expense Tracker</h1>
-        <div class="balance">
+
+        <div class="balance-container">
             <h3>Your Balance</h3>
-            <span id="balance">$0</span>
-            <div class="table">
-                <div class="income">Income: $0</div>
-                <div class="expense">Expense: $0</div>
+            <h2 id="balance">&#8377;0.00</h2>
+            <div class="summary">
+                <div class="income">
+                    <h4>Income</h4>
+                    <p id="money-plus" class="money-plus">&#8377;0.00</p>
+                </div>
+                <div class="expense">
+                    <h4>Expense</h4>
+                    <p id="money-minus" class="money-minus">&#8377;0.00</p>
+                </div>
             </div>
         </div>
+
         <div class="history">
             <h3>History</h3>
-            <div class="history-list"></div>
+            <ul id="list" class="list"></ul>
         </div>
-        <div class="add-transaction">
 
+        <div class="transaction">
             <h3>Add New Transaction</h3>
+            <form id="form">
+                <label for="text">Text</label>
+                <input type="text" id="text" placeholder="Enter name..." required>
 
-            <label for="text">Text</label>
-            <input type="text" id="text" placeholder="Enter text...">
+                <label for="amount">Amount <br> (negative - expense, positive - income)</label>
+                <input type="number" id="amount" placeholder="Enter amount..." required>
 
-            <label for="amount">Amount <br>(negative - expense, positive - income)</label>
-            <input type="number" id="amount" placeholder="Enter amount...">
-
-            <button id="add-transaction">Add Transaction</button>
-
+                <button class="btn">Add Transaction</button>
+            </form>
         </div>
     </div>
 
